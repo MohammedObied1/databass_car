@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Inventory</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+            text-transform: uppercase;
+        }
+        td {
+            border-bottom: 1px solid #ddd;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        .back-link:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Inventory</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Car ID</th>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>Price</th>
+                    <th>Year</th>
+                    <th>Fuel Type</th>
+                    <th>Color</th>
+                    <th>Motor Size</th>
+                    <th>Motor Info</th>
+                    <th>VIN</th>
+                    <th>Branch Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for car in inventory %}
+                <tr>
+                    <td>{{ car.car_ID }}</td>
+                    <td>{{ car.make }}</td>
+                    <td>{{ car.modal }}</td>
+                    <td>${{ car.price }}</td>
+                    <td>{{ car.model_year }}</td>
+                    <td>{{ car.fuel_type }}</td>
+                    <td>{{ car.color }}</td>
+                    <td>{{ car.motor_size }} cc</td>
+                    <td>{{ car.mator_infarmation }}</td>
+                    <td>{{ car.vin }}</td>
+                    <td>{{ car.branch_address }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div style="text-align: center;">
+        <a href="{{ url_for('employee_dashboard') }}" class="back-link">Back to Dashboard</a>
+    </div>
+</body>
+</html>

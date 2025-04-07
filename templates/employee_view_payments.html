@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Payments</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .filters input, .filters select, .filters button {
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .filters button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        .filters button:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+            text-transform: uppercase;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .no-payments {
+            text-align: center;
+            font-size: 16px;
+            color: #777;
+            margin-top: 20px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #4CAF50;
+            font-size: 16px;
+            border: 1px solid #4CAF50;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .back-link:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .btn-container {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>View Payments</h1>
+        <form class="filters" method="GET" action="/employee_view_payments">
+            <div>
+                <label for="start_date">Start Date:</label>
+                <input type="date" id="start_date" name="start_date" value="{{ start_date }}">
+            </div>
+            <div>
+                <label for="end_date">End Date:</label>
+                <input type="date" id="end_date" name="end_date" value="{{ end_date }}">
+            </div>
+            <div>
+                <label for="method">Payment Method:</label>
+                <select id="method" name="method">
+                    <option value="">-- Select --</option>
+                    <option value="Credit Card" {% if method_filter == 'Credit Card' %}selected{% endif %}>Credit Card</option>
+                    <option value="Cash" {% if method_filter == 'Cash' %}selected{% endif %}>Cash</option>
+                    <option value="Bank Transfer" {% if method_filter == 'Bank Transfer' %}selected{% endif %}>Bank Transfer</option>
+                </select>
+            </div>
+            <button type="submit">Filter</button>
+        </form>
+
+        {% if payments %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Payment ID</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Method</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for payment in payments %}
+                <tr>
+                    <td>{{ payment.Payments_ID }}</td>
+                    <td>{{ payment.adate }}</td>
+                    <td>{{ payment.Amount }}</td>
+                    <td>{{ payment.method }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="no-payments">No payments found for the selected criteria.</p>
+        {% endif %}
+    </div>
+    <div class="btn-container">
+        <a href="{{ url_for('employee_dashboard') }}" class="back-link">Back to Dashboard</a>
+    </div>
+</body>
+</html>

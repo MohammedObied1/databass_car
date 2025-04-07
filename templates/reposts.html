@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reposts</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .actions form {
+            display: flex;
+            align-items: center;
+        }
+
+        .actions form label {
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .actions form input {
+            margin-right: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .actions form button {
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .actions form button:hover {
+            background-color: #45a049;
+        }
+
+        .add-new {
+            text-align: right;
+        }
+
+        .add-new a {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .add-new a:hover {
+            background-color: #45a049;
+        }
+
+        h3 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table thead {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        table th, table td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        table a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        table a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Reposts</h1>
+
+    <!-- قسم الفلترة وزر الإضافة -->
+    <div class="actions">
+        <form method="GET" action="{{ url_for('reposts') }}">
+            <label for="start_date">Start Date:</label>
+            <input type="date" id="start_date" name="start_date" value="{{ start_date_filter }}">
+            
+            <label for="end_date">End Date:</label>
+            <input type="date" id="end_date" name="end_date" value="{{ end_date_filter }}">
+            
+            <label for="company_id">Company ID:</label>
+            <input type="text" id="company_id" name="company_id" value="{{ company_id_filter }}">
+            
+            <button type="submit">Filter</button>
+        </form>
+
+        <div class="add-new">
+            <a href="{{ url_for('add_repost') }}">Add New</a>
+        </div>
+    </div>
+
+    <!-- عرض مجموع المبيعات -->
+    <h3>Total Sales: {{ total_sales }}</h3>
+
+    <!-- عرض النتائج -->
+    <table>
+        <thead>
+            <tr>
+                <th>Report ID</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Total Sales</th>
+                <th>Company ID</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for repost in reposts %}
+            <tr>
+                <td>{{ repost[0] }}</td>
+                <td>{{ repost[1] }}</td>
+                <td>{{ repost[2] }}</td>
+                <td>{{ repost[3] }}</td>
+                <td>{{ repost[4] }}</td>
+                <td>
+                    <a href="{{ url_for('edit_repost', report_id=repost[0]) }}">Edit</a>
+                    <a href="{{ url_for('delete_repost', report_id=repost[0]) }}">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('tables') }}" class="button">Back to tables</a>
+
+</body>
+</html>

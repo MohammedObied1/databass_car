@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Payment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            padding-top: 20px;
+        }
+        form {
+            width: 400px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+            display: block;
+        }
+        input[type="number"],
+        input[type="text"],
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        a {
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+        a:hover {
+            color: #007BFF;
+        }
+    </style>
+</head>
+<body>
+    <h1>Add New Payment</h1>
+    <form method="POST">
+        <label for="Payments_ID">Payment ID:</label>
+        <input type="number" name="Payments_ID" required><br><br>
+
+        <label for="adate">Date:</label>
+        <input type="date" name="adate" required><br><br>
+
+        <label for="Amount">Amount:</label>
+        <input type="number" name="Amount" required><br><br>
+
+        <label for="method">Method:</label>
+        <input type="text" name="method" required><br><br>
+
+        <label for="transaction_ID">Transaction ID:</label>
+        <input type="number" name="transaction_ID" required><br><br>
+
+        <label for="Branch_ID">Branch ID:</label>
+        <input type="number" name="Branch_ID" required><br><br>
+
+        <input type="submit" value="Add Payment">
+    </form>
+    <br>
+    <a href="{{ url_for('payments') }}">Back to Payments List</a>
+</body>
+</html>

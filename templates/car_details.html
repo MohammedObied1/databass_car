@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        main {
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .car-details {
+            padding: 1rem;
+        }
+
+        .car-details h2 {
+            margin-top: 0;
+        }
+
+        .car-details table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .car-details th, .car-details td {
+            text-align: left;
+            padding: 0.5rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .back-link {
+            margin-top: 1rem;
+            display: inline-block;
+            text-decoration: none;
+            background: #007bff;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        .back-link:hover {
+            background: #0056b3;
+        }
+
+        .order-button {
+            display: inline-block;
+            text-decoration: none;
+            background: #28a745;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+
+        .order-button:hover {
+            background: #218838;
+        }
+
+        /* Alert Box */
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            color: #856404;
+            background-color: #fff3cd;
+            border-color: #ffeeba;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Car Details</h1>
+    </header>
+    <main>
+        <div class="car-details">
+            <h2>{{ car.make }} - {{ car.modal }}</h2>
+            <table>
+                <tr>
+                    <th>Price</th>
+                    <td>${{ car.price }}</td>
+                </tr>
+                <tr>
+                    <th>Model Year</th>
+                    <td>{{ car.model_year }}</td>
+                </tr>
+                <tr>
+                    <th>Fuel Type</th>
+                    <td>{{ car.fuel_type }}</td>
+                </tr>
+                <tr>
+                    <th>Color</th>
+                    <td>{{ car.color }}</td>
+                </tr>
+                <tr>
+                    <th>Motor Size</th>
+                    <td>{{ car.motor_size }}</td>
+                </tr>
+                <tr>
+                    <th>Motor Information</th>
+                    <td>{{ car.mator_infarmation }}</td>
+                </tr>
+                <tr>
+                    <th>VIN</th>
+                    <td>{{ car.vin }}</td>
+                </tr>
+            </table>
+
+            <!-- Display the message if available -->
+            {% if request.args.get('message') %}
+                <div class="alert">
+                    {{ request.args.get('message') }}
+                </div>
+            {% endif %}
+
+            <!-- Order Button -->
+            <form action="/order/{{ car.car_ID }}" method="POST">
+                <input type="text" name="customer_name" placeholder="Your Name" required>
+                <input type="text" name="phone_number" placeholder="Phone Number" required>
+                <textarea name="address" placeholder="Address" required></textarea>
+                <button type="submit" class="order-button">Order This Car</button>
+            </form>
+
+            <a class="back-link" href="/user_page">Back to Inventory</a>
+        </div>
+    </main>
+</body>
+</html>

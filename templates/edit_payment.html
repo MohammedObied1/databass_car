@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Payment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-top: 40px;
+        }
+        form {
+            width: 50%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        label {
+            font-size: 16px;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+        }
+        input[type="date"], input[type="number"], input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        a {
+            text-decoration: none;
+            color: #4CAF50;
+            font-weight: bold;
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+        a:hover {
+            color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Edit Payment</h1>
+    <form method="POST">
+        <label for="adate">Date:</label>
+        <input type="date" name="adate" value="{{ payment[1] }}" required>
+
+        <label for="Amount">Amount:</label>
+        <input type="number" name="Amount" value="{{ payment[2] }}" required>
+
+        <label for="method">Method:</label>
+        <input type="text" name="method" value="{{ payment[3] }}" required>
+
+        <label for="transaction_ID">Transaction ID:</label>
+        <input type="number" name="transaction_ID" value="{{ payment[4] }}" required>
+
+        <label for="Branch_ID">Branch ID:</label>
+        <input type="number" name="Branch_ID" value="{{ payment[5] }}" required>
+
+        <input type="submit" value="Update Payment">
+    </form>
+    <a href="{{ url_for('payments') }}">Back to Payments List</a>
+</body>
+</html>

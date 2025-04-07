@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Center</title>
+    <style>
+        /* Add your CSS styling here */
+    </style>
+</head>
+<body>
+    <h1>Delete Center</h1>
+    <p>Are you sure you want to delete this center?</p>
+    <form method="POST" action="/delete_center/{{ branch_id }}">
+        <button type="submit">Yes, Delete</button>
+        <a href="/manage_centers">Cancel</a>
+    </form>
+</body>
+</html>

@@ -1,0 +1,503 @@
+drop database project ;
+create database project ;
+use project ; 
+ 
+ create table company (
+ company_ID int primary key 
+ );
+ 
+create table Reposts (
+   Report_ID int primary key not null,
+   start_Date date,
+   end_date date,
+   total_sales int,
+   company_ID int,
+   foreign key (company_ID) references company(company_ID) on UPDATE CASCADE  ON DELETE CASCADE
+);
+
+ 
+ create table Branch (
+ Branch_ID int primary key not null, 
+ Address varchar(32),
+ company_ID int ,
+ FOREIGN KEY (company_ID) REFERENCES Company(company_ID)ON UPDATE CASCADE ON DELETE CASCADE
+ );
+ 
+  create table Employea (
+ Employea_ID int primary key not null , 
+ sname varchar (32) , 
+ Address varchar(32) ,
+ phone_Number int , 
+ sRole varchar(32),
+ Salary int,
+ Branch_ID int ,
+ foreign KEY (Branch_ID) references Branch(Branch_ID)ON UPDATE CASCADE ON DELETE CASCADE
+
+ );
+ create table Payments(
+ Payments_ID int primary key not null , 
+ adate date , 
+ Amount int , 
+ method varchar(32) ,
+ transaction_ID int ,
+ Branch_ID int , 
+ foreign KEY (Branch_ID) references Branch(Branch_ID)ON UPDATE CASCADE ON DELETE CASCADE
+ );
+  create table Customer (
+  Customer_id INT AUTO_INCREMENT PRIMARY KEY , 
+  sname varchar(32) , 
+  phone_Number int , 
+  address varchar(32)
+  
+ );
+ 
+ create table orders (
+  orders_id int AUTO_INCREMENT primary key, 
+  sname varchar(32) , 
+  phone_Number int , 
+  address varchar(32),
+  Customer_id int ,
+foreign key(Customer_id) references Customer(Customer_id) ON UPDATE CASCADE ON DELETE CASCADE
+
+ );
+ create table care_inventory (
+ car_ID int primary key not null , 
+ price int , 
+ model_year date , 
+ fuel_type varchar(32) ,
+ color varchar(32) ,
+ motor_size int , 
+ mator_infarmation varchar(32) ,
+ modal varchar(32) ,
+ make varchar(32) ,
+ vin int ,
+ Branch_ID int ,
+ orders_id int , 
+  foreign KEY (orders_id) references orders(orders_id)ON UPDATE CASCADE ON DELETE CASCADE
+,
+ foreign KEY (Branch_ID) references Branch(Branch_ID)ON UPDATE CASCADE ON DELETE CASCADE
+
+ );
+ CREATE TABLE order_car (
+     order_car int AUTO_INCREMENT primary key ,
+    orders_id INT NOT NULL,
+    car_ID INT NOT NULL,
+    FOREIGN KEY (orders_id) REFERENCES orders(orders_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (car_ID) REFERENCES care_inventory(car_ID) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+ create table supplier (
+ supplier_id int primary key not null, 
+ sname varchar (32) ,
+ phone_Number int , 
+ Address varchar(32) , 
+ Rating varchar(32),
+ car_ID int , 
+ foreign KEY (car_ID) references care_inventory(car_ID)ON UPDATE CASCADE ON DELETE CASCADE
+ );
+
+
+ 
+CREATE TABLE users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password1 VARCHAR(255) NOT NULL,
+    sname VARCHAR(50) NOT NULL,
+    role ENUM('admin', 'employee', 'customer') NOT NULL DEFAULT 'customer'
+);
+
+ create table transaction1(
+  transaction_ID int primary key not null, 
+  car_ID int , 
+  customar_ID int , 
+  supplier_ID int , 
+  transaction_Type varchar(32) ,
+  Amount int ,
+  company_ID int ,
+  foreign key(company_ID) references company(company_ID) ON UPDATE CASCADE ON DELETE CASCADE,
+  foreign KEY (car_ID) references care_inventory(car_ID) ON UPDATE CASCADE ON DELETE CASCADE,
+  foreign KEY (supplier_ID) references Supplier(supplier_ID)ON UPDATE CASCADE ON DELETE CASCADE
+ );
+ 
+ create table Customer_Branch  (
+ Customer_id int not null, 
+ Branch_ID int not null, 
+ foreign KEY (Customer_id) references Customer(Customer_id) ON UPDATE CASCADE ON DELETE CASCADE,
+ foreign KEY (Branch_ID) references Branch(Branch_ID) ON UPDATE CASCADE ON DELETE CASCADE
+
+);
+ 
+INSERT INTO company (company_ID)
+VALUES
+(1),
+(2),
+(3),
+(4),
+(5),
+(6),
+(7),
+(8),
+(9),
+(10),
+(11),
+(12),
+(13),
+(14),
+(15),
+(16),
+(17),
+(18),
+(19),
+(20),
+(21),
+(22),
+(23),
+(24),
+(25);
+
+
+
+INSERT INTO Reposts (Report_ID, start_Date, end_date, total_sales, company_ID)
+VALUES
+(1, '2024-01-01', '2024-01-31', 15000, 1),
+(2, '2024-02-01', '2024-02-28', 18000, 2),
+(3, '2024-03-01', '2024-03-31', 21000, 3),
+(4, '2024-04-01', '2024-04-30', 23000, 4),
+(5, '2024-05-01', '2024-05-31', 12000, 5),
+(6, '2024-06-01', '2024-06-30', 19000, 6),
+(7, '2024-07-01', '2024-07-31', 25000, 7),
+(8, '2024-08-01', '2024-08-31', 22000, 8),
+(9, '2024-09-01', '2024-09-30', 30000, 9),
+(10, '2024-10-01', '2024-10-31', 27500, 10),
+(11, '2024-11-01', '2024-11-30', 29000, 11),
+(12, '2024-12-01', '2024-12-31', 31500, 12),
+(13, '2025-01-01', '2025-01-31', 33000, 13),
+(14, '2025-02-01', '2025-02-28', 14500, 14),
+(15, '2025-03-01', '2025-03-31', 16000, 15),
+(16, '2025-04-01', '2025-04-30', 40000, 16),
+(17, '2025-05-01', '2025-05-31', 18500, 17),
+(18, '2025-06-01', '2025-06-30', 21000, 18),
+(19, '2025-07-01', '2025-07-31', 43000, 19),
+(20, '2025-08-01', '2025-08-31', 27500, 20),
+(21, '2025-09-01', '2025-09-30', 19200, 21),
+(22, '2025-10-01', '2025-10-31', 21800, 22),
+(23, '2025-11-01', '2025-11-30', 27000, 23),
+(24, '2025-12-01', '2025-12-31', 35000, 24),
+(25, '2026-01-01', '2026-01-31', 42000, 25);
+
+
+
+INSERT INTO Branch (Branch_ID, Address, company_ID)
+VALUES
+(1, 'Downtown St. 1', 1),
+(2, 'Downtown St. 2', 2),
+(3, 'King Abdullah St. 3', 3),
+(4, 'Salah El-Din St. 4', 4),
+(5, 'Main Blvd. 5', 5),
+(6, 'Airport Rd. 6', 6),
+(7, 'University St. 7', 7),
+(8, 'Al-Nasr St. 8', 8),
+(9, 'Tariq St. 9', 9),
+(10, 'Garden St. 10', 10),
+(11, '7th Circle St. 11', 11),
+(12, '8th Circle St. 12', 12),
+(13, 'Al-Madina Al-Munawara St. 13', 13),
+(14, 'Zarqa Main St. 14', 14),
+(15, 'Irbid Center St. 15', 15),
+(16, 'Rainbow St. 16', 16),
+(17, 'Wadi Saqra St. 17', 17),
+(18, 'Jabal Amman St. 18', 18),
+(19, 'Shmesani St. 19', 19),
+(20, 'Sweifieh St. 20', 20),
+(21, 'Khalda St. 21', 21),
+(22, 'Bunayat St. 22', 22),
+(23, 'Marj Al Hamam St. 23', 23),
+(24, 'Abdoun St. 24', 24),
+(25, 'Deir Ghbar St. 25', 25);
+
+
+
+INSERT INTO Employea (Employea_ID, sname, Address, phone_Number, sRole, Salary, Branch_ID)
+VALUES
+(1, 'Ali Ahmad', 'Downtown St. 1', 777001001, 'Manager', 1500, 1),
+(2, 'Sara Khalid', 'Downtown St. 2', 777002002, 'Sales Rep', 900, 2),
+(3, 'Omar Yaseen', 'King Abdullah St. 3', 777003003, 'Accountant', 1100, 3),
+(4, 'Huda Saleem', 'Salah El-Din St. 4', 777004004, 'Technician', 950, 4),
+(5, 'Mona Rashid', 'Main Blvd. 5', 777005005, 'Sales Rep', 1000, 5),
+(6, 'Ahmad Sami', 'Airport Rd. 6', 777006006, 'Manager', 1600, 6),
+(7, 'Reem Farah', 'University St. 7', 777007007, 'Accountant', 1200, 7),
+(8, 'Tariq Mufeed', 'Al-Nasr St. 8', 777008008, 'Technician', 1000, 8),
+(9, 'Nour Hassan', 'Tariq St. 9', 777009009, 'Sales Rep', 950, 9),
+(10, 'Laith Amer', 'Garden St. 10', 777010010, 'Manager', 1800, 10),
+(11, 'Dalia Omar', '7th Circle St. 11', 777011011, 'Accountant', 1250, 11),
+(12, 'Ibrahim Salem', '8th Circle St. 12', 777012012, 'Sales Rep', 1050, 12),
+(13, 'Sundus Qasem', 'Al-Madina Al-Munawara St. 13', 777013013, 'Technician', 980, 13),
+(14, 'Farah Mahmoud', 'Zarqa Main St. 14', 777014014, 'Sales Rep', 990, 14),
+(15, 'Khaled Majed', 'Irbid Center St. 15', 777015015, 'Manager', 1700, 15),
+(16, 'Yasmeen Ali', 'Rainbow St. 16', 777016016, 'Sales Rep', 950, 16),
+(17, 'Bilal Mousa', 'Wadi Saqra St. 17', 777017017, 'Accountant', 1150, 17),
+(18, 'Lama Issa', 'Jabal Amman St. 18', 777018018, 'Technician', 1000, 18),
+(19, 'Jawad Sami', 'Shmesani St. 19', 777019019, 'Sales Rep', 1000, 19),
+(20, 'Arwa Ihab', 'Sweifieh St. 20', 777020020, 'Manager', 1550, 20),
+(21, 'Othman Nabil', 'Khalda St. 21', 777021021, 'Accountant', 1300, 21),
+(22, 'Lara Ayman', 'Bunayat St. 22', 777022022, 'Sales Rep', 950, 22),
+(23, 'Nader Saleh', 'Marj Al Hamam St. 23', 777023023, 'Technician', 850, 23),
+(24, 'Hassan Ziad', 'Abdoun St. 24', 777024024, 'Accountant', 1400, 24),
+(25, 'Maha Omar', 'Deir Ghbar St. 25', 777025025, 'Sales Rep', 1000, 25);
+
+
+
+INSERT INTO Payments (Payments_ID, adate, Amount, method, transaction_ID, Branch_ID)
+VALUES
+(1, '2024-01-01', 500, 'Cash', 1, 1),
+(2, '2024-01-02', 1200, 'Credit Card', 2, 2),
+(3, '2024-01-03', 800, 'Bank Transfer', 3, 3),
+(4, '2024-01-04', 1500, 'Cash', 4, 4),
+(5, '2024-01-05', 2200, 'Credit Card', 5, 5),
+(6, '2024-01-06', 600, 'Bank Transfer', 6, 6),
+(7, '2024-01-07', 950, 'Cash', 7, 7),
+(8, '2024-01-08', 1100, 'Credit Card', 8, 8),
+(9, '2024-01-09', 2000, 'Bank Transfer', 9, 9),
+(10, '2024-01-10', 400, 'Cash', 10, 10),
+(11, '2024-01-11', 750, 'Credit Card', 11, 11),
+(12, '2024-01-12', 1250, 'Bank Transfer', 12, 12),
+(13, '2024-01-13', 300, 'Cash', 13, 13),
+(14, '2024-01-14', 850, 'Credit Card', 14, 14),
+(15, '2024-01-15', 2100, 'Bank Transfer', 15, 15),
+(16, '2024-01-16', 500, 'Cash', 16, 16),
+(17, '2024-01-17', 1800, 'Credit Card', 17, 17),
+(18, '2024-01-18', 950, 'Bank Transfer', 18, 18),
+(19, '2024-01-19', 1300, 'Cash', 19, 19),
+(20, '2024-01-20', 1750, 'Credit Card', 20, 20),
+(21, '2024-01-21', 600, 'Bank Transfer', 21, 21),
+(22, '2024-01-22', 2100, 'Cash', 22, 22),
+(23, '2024-01-23', 1250, 'Credit Card', 23, 23),
+(24, '2024-01-24', 1550, 'Bank Transfer', 24, 24),
+(25, '2024-01-25', 1950, 'Cash', 25, 25);
+
+
+INSERT INTO Customer (Customer_id, sname, phone_Number, address)
+VALUES
+(1, 'Customer1', 790000001, 'Amman, Jordan'),
+(2, 'Customer2', 790000002, 'Zarqa, Jordan'),
+(3, 'Customer3', 790000003, 'Irbid, Jordan'),
+(4, 'Customer4', 790000004, 'Salt, Jordan'),
+(5, 'Customer5', 790000005, 'Madaba, Jordan'),
+(6, 'Customer6', 790000006, 'Karak, Jordan'),
+(7, 'Customer7', 790000007, 'Ma\'an, Jordan'),
+(8, 'Customer8', 790000008, 'Aqaba, Jordan'),
+(9, 'Customer9', 790000009, 'Tafilah, Jordan'),
+(10, 'Customer10', 790000010, 'Mafraq, Jordan'),
+(11, 'Customer11', 790000011, 'Jarash, Jordan'),
+(12, 'Customer12', 790000012, 'Ajloun, Jordan'),
+(13, 'Customer13', 790000013, 'Amman, Sweifieh'),
+(14, 'Customer14', 790000014, 'Amman, Khalda'),
+(15, 'Customer15', 790000015, 'Amman, Abdoun'),
+(16, 'Customer16', 790000016, 'Irbid, City Center'),
+(17, 'Customer17', 790000017, 'Ramtha, Jordan'),
+(18, 'Customer18', 790000018, 'Zarqa, New City'),
+(19, 'Customer19', 790000019, 'Mafraq, West Side'),
+(20, 'Customer20', 790000020, 'Salt, DownTown'),
+(21, 'Customer21', 790000021, 'Madaba, Center'),
+(22, 'Customer22', 790000022, 'Aqaba, Beach Area'),
+(23, 'Customer23', 790000023, 'Amman, Jabal Amman'),
+(24, 'Customer24', 790000024, 'Amman, Abdali'),
+(25, 'Customer25', 790000025, 'Amman, Jubeiha');
+
+
+INSERT INTO orders (orders_id, sname, phone_Number, address, Customer_id)
+VALUES
+(1, 'Order1', 790100001, 'Amman, Jordan', 1),
+(2, 'Order2', 790100002, 'Zarqa, Jordan', 2),
+(3, 'Order3', 790100003, 'Irbid, Jordan', 3),
+(4, 'Order4', 790100004, 'Salt, Jordan', 4),
+(5, 'Order5', 790100005, 'Madaba, Jordan', 5),
+(6, 'Order6', 790100006, 'Karak, Jordan', 6),
+(7, 'Order7', 790100007, 'Ma\'an, Jordan', 7),
+(8, 'Order8', 790100008, 'Aqaba, Jordan', 8),
+(9, 'Order9', 790100009, 'Tafilah, Jordan', 9),
+(10, 'Order10', 790100010, 'Mafraq, Jordan', 10),
+(11, 'Order11', 790100011, 'Jarash, Jordan', 11),
+(12, 'Order12', 790100012, 'Ajloun, Jordan', 12),
+(13, 'Order13', 790100013, 'Amman, Sweifieh', 13),
+(14, 'Order14', 790100014, 'Amman, Khalda', 14),
+(15, 'Order15', 790100015, 'Amman, Abdoun', 15),
+(16, 'Order16', 790100016, 'Irbid, City Center', 16),
+(17, 'Order17', 790100017, 'Ramtha, Jordan', 17),
+(18, 'Order18', 790100018, 'Zarqa, New City', 18),
+(19, 'Order19', 790100019, 'Mafraq, West Side', 19),
+(20, 'Order20', 790100020, 'Salt, DownTown', 20),
+(21, 'Order21', 790100021, 'Madaba, Center', 21),
+(22, 'Order22', 790100022, 'Aqaba, Beach Area', 22),
+(23, 'Order23', 790100023, 'Amman, Jabal Amman', 23),
+(24, 'Order24', 790100024, 'Amman, Abdali', 24),
+(25, 'Order25', 790100025, 'Amman, Jubeiha', 25);
+
+
+
+INSERT INTO care_inventory
+(car_ID, price, model_year, fuel_type, color, motor_size, mator_infarmation, modal, make, vin, Branch_ID, orders_id)
+VALUES
+(1, 25000, '2022-01-01', 'Gasoline', 'White', 1600, 'Engine V4', 'Sedan', 'Toyota', 111111, 1, 1),
+(2, 27000, '2021-01-01', 'Gasoline', 'Black', 2000, 'Engine V6', 'SUV', 'Honda', 222222, 2, 2),
+(3, 30000, '2023-01-01', 'Diesel', 'Blue', 2200, 'Turbo Diesel', 'Sedan', 'Ford', 333333, 3, 3),
+(4, 35000, '2024-01-01', 'Hybrid', 'Red', 1800, 'Hybrid V4', 'SUV', 'Hyundai', 444444, 4, 4),
+(5, 40000, '2022-01-01', 'Gasoline', 'Silver', 2500, 'Engine V6', 'Truck', 'Chevrolet', 555555, 5, 5),
+(6, 32000, '2023-01-01', 'Electric', 'White', 0, 'Electric Motor', 'Hatchback', 'Tesla', 666666, 6, 6),
+(7, 28000, '2020-01-01', 'Gasoline', 'Gray', 1600, 'Engine V4', 'Sedan', 'Kia', 777777, 7, 7),
+(8, 45000, '2024-01-01', 'Hybrid', 'Blue', 2000, 'Hybrid V4', 'SUV', 'Toyota', 888888, 8, 8),
+(9, 22000, '2021-01-01', 'Gasoline', 'Red', 1500, 'Engine V4', 'Sedan', 'Honda', 999999, 9, 9),
+(10, 37000, '2022-01-01', 'Diesel', 'Black', 2200, 'Turbo Diesel', 'Truck', 'Ford', 101010, 10, 10),
+(11, 33000, '2023-01-01', 'Gasoline', 'White', 2000, 'Engine V6', 'Coupe', 'BMW', 111213, 11, 11),
+(12, 41000, '2024-01-01', 'Hybrid', 'Gray', 1800, 'Hybrid V4', 'SUV', 'Honda', 121314, 12, 12),
+(13, 29000, '2020-01-01', 'Electric', 'Silver', 0, 'Electric Motor', 'Sedan', 'Nissan', 131415, 13, 13),
+(14, 36000, '2021-01-01', 'Gasoline', 'Blue', 2500, 'Engine V6', 'SUV', 'Jeep', 141516, 14, 14),
+(15, 26000, '2022-01-01', 'Diesel', 'White', 2200, 'Turbo Diesel', 'Truck', 'Toyota', 151617, 15, 15),
+(16, 44000, '2023-01-01', 'Hybrid', 'Black', 2000, 'Hybrid V4', 'Sedan', 'Hyundai', 161718, 16, 16),
+(17, 48000, '2024-01-01', 'Electric', 'Red', 0, 'Electric Motor', 'SUV', 'Tesla', 171819, 17, 17),
+(18, 31000, '2021-01-01', 'Gasoline', 'Silver', 1600, 'Engine V4', 'Sedan', 'Honda', 181920, 18, 18),
+(19, 39000, '2022-01-01', 'Diesel', 'White', 2200, 'Turbo Diesel', 'SUV', 'Ford', 192021, 19, 19),
+(20, 42000, '2023-01-01', 'Hybrid', 'Blue', 2000, 'Hybrid V4', 'Hatchback', 'Toyota', 202122, 20, 20),
+(21, 45500, '2024-01-01', 'Gasoline', 'Black', 3000, 'Engine V8', 'Coupe', 'Chevrolet', 212223, 21, 21),
+(22, 27500, '2020-01-01', 'Gasoline', 'White', 1600, 'Engine V4', 'Sedan', 'Kia', 222324, 22, 22),
+(23, 50000, '2023-01-01', 'Electric', 'Gray', 0, 'Electric Motor', 'SUV', 'Audi', 232425, 23, 23),
+(24, 34000, '2021-01-01', 'Diesel', 'Blue', 2200, 'Turbo Diesel', 'Sedan', 'VW', 242526, 24, 24),
+(25, 46000, '2024-01-01', 'Hybrid', 'Red', 2000, 'Hybrid V4', 'SUV', 'BMW', 252627, 25, 25);
+
+
+INSERT INTO order_car (order_car, orders_id, car_ID)
+VALUES
+(1, 1, 1),
+(2, 2, 2),
+(3, 3, 3),
+(4, 4, 4),
+(5, 5, 5),
+(6, 6, 6),
+(7, 7, 7),
+(8, 8, 8),
+(9, 9, 9),
+(10, 10, 10),
+(11, 11, 11),
+(12, 12, 12),
+(13, 13, 13),
+(14, 14, 14),
+(15, 15, 15),
+(16, 16, 16),
+(17, 17, 17),
+(18, 18, 18),
+(19, 19, 19),
+(20, 20, 20),
+(21, 21, 21),
+(22, 22, 22),
+(23, 23, 23),
+(24, 24, 24),
+(25, 25, 25);
+
+
+INSERT INTO supplier (supplier_id, sname, phone_Number, Address, Rating, car_ID)
+VALUES
+(1, 'Supplier1', 780000001, 'Amman Supplier St.1', 'A', 1),
+(2, 'Supplier2', 780000002, 'Zarqa Supplier St.2', 'B', 2),
+(3, 'Supplier3', 780000003, 'Irbid Supplier St.3', 'A', 3),
+(4, 'Supplier4', 780000004, 'Salt Supplier St.4', 'C', 4),
+(5, 'Supplier5', 780000005, 'Madaba Supplier St.5', 'B', 5),
+(6, 'Supplier6', 780000006, 'Karak Supplier St.6', 'A', 6),
+(7, 'Supplier7', 780000007, 'Ma\'an Supplier St.7', 'A', 7),
+(8, 'Supplier8', 780000008, 'Aqaba Supplier St.8', 'B', 8),
+(9, 'Supplier9', 780000009, 'Tafilah Supplier St.9', 'A', 9),
+(10, 'Supplier10', 780000010, 'Mafraq Supplier St.10', 'B', 10),
+(11, 'Supplier11', 780000011, 'Jarash Supplier St.11', 'C', 11),
+(12, 'Supplier12', 780000012, 'Ajloun Supplier St.12', 'A', 12),
+(13, 'Supplier13', 780000013, 'Amman Supplier St.13', 'B', 13),
+(14, 'Supplier14', 780000014, 'Amman Supplier St.14', 'A', 14),
+(15, 'Supplier15', 780000015, 'Amman Supplier St.15', 'C', 15),
+(16, 'Supplier16', 780000016, 'Irbid Supplier St.16', 'B', 16),
+(17, 'Supplier17', 780000017, 'Ramtha Supplier St.17', 'A', 17),
+(18, 'Supplier18', 780000018, 'Zarqa Supplier St.18', 'B', 18),
+(19, 'Supplier19', 780000019, 'Mafraq Supplier St.19', 'A', 19),
+(20, 'Supplier20', 780000020, 'Salt Supplier St.20', 'B', 20),
+(21, 'Supplier21', 780000021, 'Madaba Supplier St.21', 'A', 21),
+(22, 'Supplier22', 780000022, 'Aqaba Supplier St.22', 'C', 22),
+(23, 'Supplier23', 780000023, 'Amman Supplier St.23', 'B', 23),
+(24, 'Supplier24', 780000024, 'Amman Supplier St.24', 'A', 24),
+(25, 'Supplier25', 780000025, 'Amman Supplier St.25', 'A', 25);
+
+
+
+
+
+INSERT INTO transaction1
+(transaction_ID, car_ID, customar_ID, supplier_ID, transaction_Type, Amount, company_ID)
+VALUES
+(1, 1, 1, 1, 'Sale', 25000, 1),
+(2, 2, 2, 2, 'Purchase', 27000, 2),
+(3, 3, 3, 3, 'Sale', 30000, 3),
+(4, 4, 4, 4, 'Sale', 35000, 4),
+(5, 5, 5, 5, 'Purchase', 40000, 5),
+(6, 6, 6, 6, 'Sale', 32000, 6),
+(7, 7, 7, 7, 'Sale', 28000, 7),
+(8, 8, 8, 8, 'Purchase', 45000, 8),
+(9, 9, 9, 9, 'Sale', 22000, 9),
+(10, 10, 10, 10, 'Sale', 37000, 10),
+(11, 11, 11, 11, 'Sale', 33000, 11),
+(12, 12, 12, 12, 'Purchase', 41000, 12),
+(13, 13, 13, 13, 'Sale', 29000, 13),
+(14, 14, 14, 14, 'Purchase', 36000, 14),
+(15, 15, 15, 15, 'Sale', 26000, 15),
+(16, 16, 16, 16, 'Sale', 44000, 16),
+(17, 17, 17, 17, 'Purchase', 48000, 17),
+(18, 18, 18, 18, 'Sale', 31000, 18),
+(19, 19, 19, 19, 'Sale', 39000, 19),
+(20, 20, 20, 20, 'Purchase', 42000, 20),
+(21, 21, 21, 21, 'Sale', 45500, 21),
+(22, 22, 22, 22, 'Sale', 27500, 22),
+(23, 23, 23, 23, 'Purchase', 50000, 23),
+(24, 24, 24, 24, 'Sale', 34000, 24),
+(25, 25, 25, 25, 'Sale', 46000, 25);
+
+
+
+INSERT INTO Customer_Branch (Customer_id, Branch_ID)
+VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 6),
+(7, 7),
+(8, 8),
+(9, 9),
+(10, 10),
+(11, 11),
+(12, 12),
+(13, 13),
+(14, 14),
+(15, 15),
+(16, 16),
+(17, 17),
+(18, 18),
+(19, 19),
+(20, 20),
+(21, 21),
+(22, 22),
+(23, 23),
+(24, 24),
+(25, 25);
+
+
+
+INSERT INTO users (email, password1, sname, role)
+VALUES 
+('user1@example.com', 'user1', 'John Doe', 'customer'),
+('user2@example.com', 'user2', 'Jane Smith', 'customer'),
+('user3@example.com', 'user3', 'Alice Johnson', 'customer'),
+('admin1@example.com', 'admin1', 'Admin One', 'admin'),
+('admin2@example.com', 'admin2', 'Charlie Green', 'admin'),
+('employee1@example.com', 'employee1', 'Employee One', 'employee'),
+('employee2@example.com', 'employee2', 'Employee Two', 'employee');
+
+
+
+
+ 

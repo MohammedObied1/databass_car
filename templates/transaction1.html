@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transactions</title>
+    <style>
+        /* تصميم الصفحة */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* العنوان الرئيسي */
+        h1 {
+            color: #007BFF;
+            text-align: center;
+            margin-top: 30px;
+            font-size: 2.5em;
+        }
+
+        /* الروابط */
+        a {
+            text-decoration: none;
+            font-size: 16px;
+            color: #007BFF;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #0056b3;
+        }
+
+        /* زر العودة */
+        .back-link {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .back-link:hover {
+            background-color: #218838;
+        }
+
+        /* الجداول */
+        table {
+            width: 90%;
+            max-width: 1200px;
+            border-collapse: collapse;
+            margin-top: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #e9f7ff;
+        }
+
+        /* الأزرار */
+        .actions a {
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin: 0 5px;
+            font-size: 14px;
+        }
+
+        .actions a.edit {
+            background-color: #ffc107;
+        }
+
+        .actions a.edit:hover {
+            background-color: #e0a800;
+        }
+
+        .actions a.delete {
+            background-color: #dc3545;
+        }
+
+        .actions a.delete:hover {
+            background-color: #c82333;
+        }
+
+        .add-link {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .add-link:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Transactions</h1>
+    <a href="{{ url_for('add_transaction') }}" class="add-link">Add New Transaction</a>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Transaction ID</th>
+                <th>Car ID</th>
+                <th>Customer ID</th>
+                <th>Supplier ID</th>
+                <th>Transaction Type</th>
+                <th>Amount</th>
+                <th>Company ID</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in transactions %}
+            <tr>
+                <td>{{ transaction[0] }}</td>
+                <td>{{ transaction[1] }}</td>
+                <td>{{ transaction[2] }}</td>
+                <td>{{ transaction[3] }}</td>
+                <td>{{ transaction[4] }}</td>
+                <td>${{ transaction[5] }}</td>
+                <td>{{ transaction[6] }}</td>
+                <td class="actions">
+                    <a href="{{ url_for('edit_transaction', transaction_id=transaction[0]) }}" class="edit">Edit</a>
+                    <a href="{{ url_for('delete_transaction', transaction_id=transaction[0]) }}" class="delete" onclick="return confirm('Are you sure?')">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ url_for('tables') }}" class="back-link">Back to tables</a>
+
+</body>
+</html>

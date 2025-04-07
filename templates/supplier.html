@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suppliers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .filter-box {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .filter-box input {
+            padding: 10px;
+            margin: 0 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .filter-box button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .filter-box button:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        .actions a {
+            margin: 0 5px;
+            text-decoration: none;
+            color: #007BFF;
+        }
+        .actions a:hover {
+            text-decoration: underline;
+        }
+        .back-link {
+            margin-top: 20px;
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            background-color: #4CAF50;
+            padding: 10px 20px;
+            border-radius: 5px;
+            width: fit-content;
+            margin: 0 auto;
+        }
+        .back-link:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Suppliers</h1>
+
+    <!-- صندوق الفلتر -->
+    <div class="filter-box">
+        <form method="get" action="/supplier">
+            <input 
+                type="text" 
+                name="name" 
+                placeholder="Filter by Name" 
+                value="{{ name_filter }}"
+            >
+            <input 
+                type="text" 
+                name="rating" 
+                placeholder="Filter by Rating" 
+                value="{{ rating_filter }}"
+            >
+            <button type="submit">Apply Filters</button>
+        </form>
+    </div>
+    <a href="{{ url_for('add_supplier') }}" style="padding: 10px 20px; background-color: #4CAF50; color: white; border-radius: 5px; font-size: 16px;">Add New Supplier</a>
+<div>
+
+   </div> 
+
+    <!-- جدول الموردين -->
+    <table>
+        <thead>
+            <tr>
+                <th>Supplier ID</th>
+                <th>Name</th>
+                <th>Phone Number</th>
+                <th>Address</th>
+                <th>Rating</th>
+                <th>Car ID</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if suppliers %}
+                {% for supplier in suppliers %}
+                    <tr>
+                        <td>{{ supplier['supplier_id'] }}</td>
+                        <td>{{ supplier['sname'] }}</td>
+                        <td>{{ supplier['phone_Number'] }}</td>
+                        <td>{{ supplier['Address'] }}</td>
+                        <td>{{ supplier['Rating'] }}</td>
+                        <td>{{ supplier['car_ID'] }}</td>
+                        <td class="actions">
+                            <a href="{{ url_for('edit_supplier', supplier_id=supplier['supplier_id']) }}">Edit</a> |
+                            <a href="{{ url_for('delete_supplier', supplier_id=supplier['supplier_id']) }}" onclick="return confirm('Are you sure?')">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="7" style="text-align: center;">No suppliers found!</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+
+    <a href="{{ url_for('tables') }}" class="back-link">Back to tables</a>
+
+</body>
+</html>

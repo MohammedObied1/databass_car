@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Car</title>
+</head>
+<body>
+    <h1>Edit Car Information</h1>
+    <form method="POST">
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" value="{{ car[1] }}" required><br><br>
+
+        <label for="model_year">Model Year:</label>
+        <input type="date" id="model_year" name="model_year" value="{{ car[2] }}" required><br><br>
+
+        <label for="fuel_type">Fuel Type:</label>
+        <input type="text" id="fuel_type" name="fuel_type" value="{{ car[3] }}" required><br><br>
+
+        <label for="color">Color:</label>
+        <input type="text" id="color" name="color" value="{{ car[4] }}" required><br><br>
+
+        <label for="motor_size">Motor Size:</label>
+        <input type="number" id="motor_size" name="motor_size" value="{{ car[5] }}" required><br><br>
+
+        <label for="mator_infarmation">Motor Information:</label>
+        <input type="text" id="mator_infarmation" name="mator_infarmation" value="{{ car[6] }}" required><br><br>
+
+        <label for="modal">Model:</label>
+        <input type="text" id="modal" name="modal" value="{{ car[7] }}" required><br><br>
+
+        <label for="make">Make:</label>
+        <input type="text" id="make" name="make" value="{{ car[8] }}" required><br><br>
+
+        <label for="vin">VIN:</label>
+        <input type="number" id="vin" name="vin" value="{{ car[9] }}" required><br><br>
+
+        <label for="Branch_ID">Branch ID:</label>
+        <input type="number" id="Branch_ID" name="Branch_ID" value="{{ car[10] }}" required><br><br>
+
+        <label for="orders_id">Order ID:</label>
+        <input type="number" id="orders_id" name="orders_id" value="{{ car[11] }}" required><br><br>
+
+        <button type="submit">Update Car</button>
+    </form>
+</body>
+</html>

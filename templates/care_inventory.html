@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Care Inventory</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin: 0;
+        }
+        a {
+            text-decoration: none;
+            color: #4CAF50;
+            padding: 8px 16px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            margin: 10px;
+            transition: background-color 0.3s;
+        }
+        a:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        .actions a {
+            margin: 0 5px;
+            background-color: #f44336;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .actions a:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <h1>Care Inventory List</h1>
+    <div style="text-align: center;">
+        <a href="/add_car_inventory">Add New Car</a>
+    </div>
+    <table>
+        <tr>
+            <th>Car ID</th>
+            <th>Price</th>
+            <th>Model Year</th>
+            <th>Fuel Type</th>
+            <th>Color</th>
+            <th>Motor Size</th>
+            <th>Motor Information</th>
+            <th>Model</th>
+            <th>Make</th>
+            <th>VIN</th>
+            <th>Branch ID</th>
+            <th>Order ID</th>
+            <th>Actions</th>
+        </tr>
+        {% for car in inventory %}
+        <tr>
+            <td>{{ car[0] }}</td>
+            <td>{{ car[1] }}</td>
+            <td>{{ car[2] }}</td>
+            <td>{{ car[3] }}</td>
+            <td>{{ car[4] }}</td>
+            <td>{{ car[5] }}</td>
+            <td>{{ car[6] }}</td>
+            <td>{{ car[7] }}</td>
+            <td>{{ car[8] }}</td>
+            <td>{{ car[9] }}</td>
+            <td>{{ car[10] }}</td>
+            <td>{{ car[11] }}</td>
+            <td class="actions">
+                <a href="/edit_car_inventory/{{ car[0] }}">Edit</a>
+                <a href="/delete_car_inventory/{{ car[0] }}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{{ url_for('tables') }}" class="back-link">Back to tables</a>
+
+</body>
+</html>

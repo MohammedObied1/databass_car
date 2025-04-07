@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tables List</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('static/images/car.jpg');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            backdrop-filter: brightness(0.7);
+        }
+
+        h1 {
+            color: #FFD700;
+            text-align: center;
+            margin-top: 80px;
+            font-size: 3rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 30px;
+            width: 100%;
+            max-width: 600px;
+            backdrop-filter: blur(5px);
+        }
+
+        li {
+            background: rgba(255, 255, 255, 0.8);
+            margin: 10px 0;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        a {
+            color: #333;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            display: block;
+            text-align: center;
+        }
+
+        a:hover {
+            color: #007bff;
+        }
+
+        .logout {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #ff4b2b, #ff416c);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s, box-shadow 0.3s;
+            z-index: 1000;
+        }
+
+        .logout:hover {
+            background: linear-gradient(135deg, #ff6e56, #ff5f7d);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        @media screen and (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            ul {
+                max-width: 100%;
+                padding: 0 20px;
+            }
+
+            li {
+                font-size: 16px;
+            }
+
+            .logout {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="/login" class="logout">Logout</a>
+    <h1>Tables List</h1>
+    <ul>
+        <li><a href="/companies">Company Table</a></li>
+        <li><a href="/reposts">Reposts Table</a></li>
+        <li><a href="/Branch">Branch Table</a></li>
+        <li><a href="/Employea">Employea Table</a></li>
+        <li><a href="/Payments">Payments Table</a></li>
+        <li><a href="/care_inventory">Care Inventory Table</a></li>
+        <li><a href="/supplier">Supplier Table</a></li>
+        <li><a href="/Customer">Customer Table</a></li>
+        <li><a href="/transaction1">Transaction Table</a></li>
+        <li><a href="/orders_summary">Orders Summary</a></li>
+        <li><a href="/orders">Orders Table</a></li>
+    </ul>
+
+</body>
+</html>
